@@ -1,0 +1,23 @@
+﻿@page "/counter"
+
+@using Syncfusion.Blazor.Inputs
+@using Syncfusion.Blazor.Buttons
+
+<h6>Result: @result1</h6>
+
+<SfTextBox @bind-Value="result1" ValueChange="@(e => result1 = e.Value)"> </SfTextBox>
+
+<h6>Result: @result2</h6>
+<SfTextBox @bind-Value="result2" OnKeyDown="@(e => result2 += e.Key)"></SfTextBox>
+
+<p>@buttonClick</p>
+<SfButton OnClick="@(()=>buttonClick="click")">Click</SfButton>
+
+
+@code {
+
+    private string result1;
+    private string result2;
+
+    private string buttonClick;
+}

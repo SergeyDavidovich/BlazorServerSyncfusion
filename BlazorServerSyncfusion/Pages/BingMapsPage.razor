@@ -1,0 +1,149 @@
+﻿@page "/BingMapsPage"
+
+@using Syncfusion.Blazor.Maps
+@using Syncfusion.Blazor.SplitButtons
+
+<div id="wrapper">
+    <div id="controls">
+        <SfSplitButton CssClass="split" Content="@BingMapTypeValue.ToString()">
+            <SplitButtonEvents ItemSelected="ItemSelected"></SplitButtonEvents>
+            <DropDownMenuItems>
+                <DropDownMenuItem Text="Arial" IconCss="e-btn-icons e-paste"></DropDownMenuItem>
+                <DropDownMenuItem Text="Road" IconCss="e-btn-icons e-paste-special"></DropDownMenuItem>
+                <DropDownMenuItem Text="Canvas" IconCss="e-btn-icons e-paste-formula"></DropDownMenuItem>
+            </DropDownMenuItems>
+        </SfSplitButton>
+    </div>
+    <div id="mapview" class="map">
+        <SfMaps Height="100%">
+            <MapsBorder Color="gray" Width="1.0"></MapsBorder>
+
+            <MapsTitleSettings Text="@Title" Description="@Title">
+                <MapsTitleTextStyle Size="16px" />
+            </MapsTitleSettings>
+
+            <MapsSelectionSettings></MapsSelectionSettings>
+
+            <MapsZoomSettings Enable="true" ShouldZoomInitially="true" ZoomFactor="100" MouseWheelZoom="true" MaxZoom="100" Color="Black"
+                              DoubleClickZoom="true"
+                              PinchZooming="true"
+                              EnablePanning="true"
+                              Toolbars="@ZoomToolbar" />
+
+            <MapsLayers>
+                <MapsLayer BingMapType="@BingMapTypeValue" LayerType="ShapeLayerType.Bing"
+                           ShapeData=@(new {dataOptions= "https://cdn.syncfusion.com/maps/map-data/usa.json"})
+                           Key="@key">
+                    <MapsMarkerSettings>
+                        <MapsMarker Visible="true" DataSource="California" Height="35" Width="35"></MapsMarker>
+                        <MapsMarker Visible="true" DataSource="NewYork" Height="35" Width="35"></MapsMarker>
+                        <MapsMarker Visible="true" DataSource="Iowa" Height="35" Width="35"></MapsMarker>
+                    </MapsMarkerSettings>
+                </MapsLayer>
+                @*<MapsCenterPosition Latitude="50.0440095" Longitude="18.6958119"></MapsCenterPosition>*@
+            </MapsLayers>
+
+            <MapsEvents OnMarkerClick="@OnMarkerClickHandler"></MapsEvents>
+        </SfMaps>
+    </div>
+</div>
+
+<style>
+    * {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    #wrapper {
+        display: grid;
+        grid-template-rows: 30px auto;
+        grid-row-gap: 6px;
+    }
+
+    #controls {
+        padding: 4px;
+        right:0;
+    }
+
+    .content {
+        position: relative !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        height: 100% !important;
+        bottom: 0 !important;
+        top: 0 !important;
+    }
+
+    .split {
+        margin: 10px;
+        width: 120px;
+        height: auto;
+    }
+
+    .map {
+        height: 100%;
+    }
+</style>
+
+@code {
+
+    #region
+
+    string key = "Ag6pIx5dzr-t-0UnXj4yR5DbLeGvMuZuVvzwWGheZ-OY4ddLDmrtzVt_bRulPIhK";
+    public string Title { get; set; } = "WORK ORDERS LOCATIONS";
+    public string[] ZoomToolbar = new string[] { "Zoom", "ZoomIn", "ZoomOut", "Pan", "Reset" };
+
+    private BingMapType BingMapTypeValue;
+    private string StringMapType;
+
+    public double Latitude { get; set; }
+    public double Longitude { get; set; }
+
+
+    protected override void OnInitialized()
+    {
+        BingMapTypeValue = BingMapType.Road;
+    }
+
+    private void ItemSelected(MenuEventArgs args)
+    {
+        var value = args.Item.Text;
+
+        switch (value)
+        {
+            case "Arial":
+                BingMapTypeValue = BingMapType.AerialWithLabel;
+                break;
+            case "Road":
+                BingMapTypeValue = BingMapType.Road;
+                break;
+            case "Canvas":
+                BingMapTypeValue = BingMapType.CanvasLight;
+                break;
+
+        }
+    }
+
+    public void OnMarkerClickHandler(IMarkerClickEventArgs args)
+    {
+        Latitude = args.Latitude;
+        Longitude = args.Longitude;
+    }
+
+    public class City
+    {
+        public double Latitude;
+        public double Longitude;
+    };
+
+    public List<City> California = new List<City> {
+        new City {Latitude=35.145083,Longitude=-117.960260}
+    };
+    public List<City> NewYork = new List<City> {
+          new City { Latitude=40.724546, Longitude=-73.850344 }
+    };
+    public List<City> Iowa = new List<City> {
+        new City {Latitude= 41.657782, Longitude=-91.533857}
+    };
+    #endregion
+}

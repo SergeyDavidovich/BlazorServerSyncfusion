@@ -1,0 +1,42 @@
+﻿@page "/SchedulePage"
+@using Syncfusion.Blazor.Schedule
+
+@inject NavigationManager navigationManager
+
+
+<SfSchedule TValue="AppointmentData" Height="650px" SelectedDate="@( DateTime.Now)" CurrentView="View.Agenda">
+    <ScheduleEvents TValue="AppointmentData" OnEventClick="OnEventClickHandler"></ScheduleEvents>
+    <ScheduleEventSettings DataSource="@DataSource" EnableIndicator="true"></ScheduleEventSettings>
+</SfSchedule>
+
+@code{
+    #region
+
+    public void OnEventClickHandler(EventClickArgs<AppointmentData> args)
+    {
+
+        var id = args.Event.Id;
+        var url = "/ApointmentPage/" + id + "/" + "SchedulePage/";
+        navigationManager.NavigateTo(url);
+    }
+
+    List<AppointmentData> DataSource = new List<AppointmentData>
+{
+        new AppointmentData { Id = 1, Subject = "Paris", StartTime = new DateTime(2020, 11, 13, 10, 0, 0) , EndTime = new DateTime(2020, 11, 13, 12, 0, 0) },
+        new AppointmentData { Id = 2, Subject = "Germany", StartTime = new DateTime(2020, 11, 15, 10, 0, 0) , EndTime = new DateTime(2020, 11, 15, 12, 0, 0) }
+    };
+    public class AppointmentData
+    {
+        public int Id { get; set; }
+        public string Subject { get; set; }
+        public string Location { get; set; }
+        public DateTime StartTime { get; set; }
+        public DateTime EndTime { get; set; }
+        public string Description { get; set; }
+        public bool IsAllDay { get; set; }
+        public string RecurrenceRule { get; set; }
+        public string RecurrenceException { get; set; }
+        public Nullable<int> RecurrenceID { get; set; }
+    }
+    #endregion
+}

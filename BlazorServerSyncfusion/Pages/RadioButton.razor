@@ -1,0 +1,172 @@
+﻿@page "/"
+
+@using Syncfusion.Blazor.Navigations
+@using Syncfusion.Blazor.Buttons
+@using Syncfusion.Blazor.Calendars
+@using Syncfusion.Blazor.DropDowns
+@using Microsoft.AspNetCore.Components.Web
+
+<div>
+    <SfTab CssClass="e-content">
+        <TabItems>
+            <TabItem Visible="@TabItemvisible1">
+                <ChildContent>
+                    <TabHeader Text="Radiobutton"></TabHeader>
+                </ChildContent>
+                <ContentTemplate>
+                    <h6>Value: @CheckedValue1</h6>
+                    <div class="btn-group" data-toggle="buttons">
+                        <label class="btn btn-outline-success btn-group-vertical active">
+                            <input style="font-size:xx-small;" type="radio" name="option" @onclick="((MouseEventArgs) =>CheckedValue1=1.ToString())">1
+                        </label>
+                        <label class="btn btn-outline-success btn-group-vertical">
+                            <input type="radio" name="option" value="" checked @onclick="((MouseEventArgs) =>CheckedValue1=2.ToString())">2
+                        </label>
+                        <label class="btn btn-outline-primary btn-group-vertical">
+                            <!-- отмеченная radio-кнопка -->
+                            <input type="radio" name="option" value="third" @onclick="((MouseEventArgs) =>CheckedValue1=3.ToString())">3
+                        </label>
+                        <label class="btn btn-outline-primary btn-group-vertical">
+                            <input type="radio" name="option" value="first" @onclick="((MouseEventArgs) =>CheckedValue1=4.ToString())">4
+                        </label>
+                        <label class="btn btn-outline-primary btn-group-vertical">
+                            <input type="radio" name="option" value="second" @onclick="((MouseEventArgs) =>CheckedValue1=5.ToString())">5
+                        </label>
+                        <label class="btn btn-outline-primary btn-group-vertical">
+                            <input type="radio" name="option" value="third" @onclick="((MouseEventArgs) =>CheckedValue1=6.ToString())">6
+                        </label>
+                        <label class="btn btn-outline-primary btn-group-vertical">
+                            <input type="radio" name="option" value="first" @onclick="((MouseEventArgs) =>CheckedValue1=7.ToString())">7
+                        </label>
+                        <label class="btn btn-outline-primary btn-group-vertical">
+                            <input type="radio" name="option" value="second" @onclick="((MouseEventArgs) =>CheckedValue1=8.ToString())">8
+                        </label>
+                        <label class="btn btn-outline-primary btn-group-vertical">
+                            <!-- отмеченная radio-кнопка -->
+                            <input type="radio" name="option" value="third" @onclick="((MouseEventArgs) =>CheckedValue1=9.ToString())">9
+                        </label>
+                        <label class="btn btn-outline-primary btn-group-vertical">
+                            <input type="radio" name="option" value="third" @onclick="((MouseEventArgs) =>CheckedValue1=10.ToString())">10
+                        </label>
+
+                    </div>
+                    <hr />
+                    <h6>Value: @CheckedValue2</h6>
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <SfRadioButton CssClass="btn btn-outline-primary" Label="1" Name="group2" Value="1" TChecked="string" @onchange="Onchange2"></SfRadioButton>
+                        <SfRadioButton CssClass="btn btn-outline-primary" Label="2" Name="group2" Value="2" TChecked="string" @onchange="Onchange2"></SfRadioButton>
+                        <SfRadioButton CssClass="btn btn-outline-primary" Label="3" Name="group2" Value="3" TChecked="string" @onchange="Onchange2"></SfRadioButton>
+                        <SfRadioButton CssClass="btn btn-outline-primary" Label="4" Name="group2" Value="4" TChecked="string" @onchange="Onchange2"></SfRadioButton>
+                        <SfRadioButton CssClass="btn btn-outline-primary" Label="5" Name="group2" Value="5" TChecked="string" @onchange="Onchange2"></SfRadioButton>
+                        <SfRadioButton CssClass="btn btn-outline-primary" Label="6" Name="group2" Value="6" TChecked="string" @onchange="Onchange2"></SfRadioButton>
+                        <SfRadioButton CssClass="btn btn-outline-primary" Label="7" Name="group2" Value="7" TChecked="string" @onchange="Onchange2"></SfRadioButton>
+                        <SfRadioButton CssClass="btn btn-outline-primary" Label="8" Name="group2" Value="8" TChecked="string" @onchange="Onchange2"></SfRadioButton>
+                        <SfRadioButton CssClass="btn btn-outline-primary" Label="9" Name="group2" Value="9" TChecked="string" @onchange="Onchange2"></SfRadioButton>
+                        <SfRadioButton CssClass="btn btn-outline-primary" Label="10" Name="group2" Value="10" TChecked="string" @onchange="Onchange2"></SfRadioButton>
+                    </div>
+                    <div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="customRadioInline1" name="customRadioInline1" class="custom-control-input">
+                            <label class="custom-control-label" for="customRadioInline1">Yes</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="customRadioInline2" name="customRadioInline1" class="custom-control-input">
+                            <label class="custom-control-label" for="customRadioInline2">No</label>
+                        </div>
+                    </div>
+                </ContentTemplate>
+            </TabItem>
+            <TabItem Visible="@TabItemvisible2">
+                <ChildContent>
+                    <TabHeader Text="DropDownList"></TabHeader>
+                </ChildContent>
+                <ContentTemplate>
+                    <div style="padding:4px;">
+                        <h6>Value: @CheckedValue3</h6>
+                        <div>
+                            <SfDropDownList DataSource=@(new List<string>() { "Cable1", "Cable2", "Cable3" })
+                                            TItem="string" TValue="string" Placeholder="Select cable type" @bind-Value="@CheckedValue3"></SfDropDownList>
+                        </div>
+                        <div>
+                            <h6>Value: @CheckedValue5</h6>
+                            <SfDropDownList DataSource=@(new List<string>() { "Cable1", "Cable2", "Cable3" })
+                                            TItem="string" TValue="string" Placeholder="Select cable type">
+                                <DropDownListEvents TItem="string" TValue="string" ValueChange="@((e) => CheckedValue5 = e.Value.ToString())"></DropDownListEvents>
+                            </SfDropDownList>
+                        </div>
+                    </div>
+                </ContentTemplate>
+            </TabItem>
+            <TabItem Visible="TabItemvisible3">
+                <ChildContent>
+                    <TabHeader Text="DatePicker"></TabHeader>
+                </ChildContent>
+                <ContentTemplate>
+                    <div style="padding:4px;">
+                        <h6>Value: @CheckedValue4</h6>
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <SfDatePicker TValue="DateTime?" Placeholder='Choose a Date'>
+                                <DatePickerEvents TValue="DateTime?" ValueChange="Onchange4"></DatePickerEvents>
+                            </SfDatePicker>
+                        </div>
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <SfDatePicker TValue="DateTime?" Placeholder='Choose a Date'>
+                                <DatePickerEvents TValue="DateTime?" ValueChange="@((e)=> CheckedValue4 = e.Value.ToString())"></DatePickerEvents>
+                            </SfDatePicker>
+                        </div>
+                    </div>
+                </ContentTemplate>
+            </TabItem>
+        </TabItems>
+    </SfTab>
+</div>
+
+@code {
+
+    private string CheckedValue1;
+    private string CheckedValue2;
+    private string CheckedValue3;
+    private string CheckedValue4;
+    private string CheckedValue5;
+
+
+    private bool TabItemvisible1 = true;
+    private bool TabItemvisible2 = true;
+    private bool TabItemvisible3 = true;
+
+    //private List<string> CableTypes;
+
+    protected override void OnInitialized()
+    {
+    }
+
+    private void OnchangeRadio(Microsoft.AspNetCore.Components.Web.MouseEventArgs args)
+    {
+        CheckedValue1 = "1";
+    }
+    private void Onchange1(Microsoft.AspNetCore.Components.ChangeEventArgs args)
+    {
+        CheckedValue1 = args.Value.ToString();
+    }
+    private void Onchange2(Microsoft.AspNetCore.Components.ChangeEventArgs args)
+    {
+        CheckedValue2 = args.Value.ToString();
+    }
+
+    private void Onchange4(ChangedEventArgs<DateTime?> args)
+    {
+        CheckedValue4 = args.Value.ToString();
+    }
+}
+
+<style>
+    .fieldgroup {
+        float: left;
+        width: auto;
+        margin-left: 6px;
+        padding-top: 14px;
+        padding-bottom: 14px;
+        position: relative;
+        left: 0px;
+    }
+</style>
